@@ -15,7 +15,10 @@
             <option value="{{ subject.id }}">{{ subject.subjectName }}</option>
         {% endfor %}
         </select>
-        <input type="submit">
+        <input type="submit"><br/>
+        {% for teacher in teachers %}
+            {{ teacher.teacherName }}<br/>
+        {% endfor %}
     </form>
 </body>
 </html>

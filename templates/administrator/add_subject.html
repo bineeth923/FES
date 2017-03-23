@@ -8,6 +8,9 @@
     <form method="post" action="{% url 'administrator:add_subject' %}">
         {% csrf_token %}
         Subject Name <input type="text" name="subject"><br/>
+        {% for subject in subjects %}
+            {{ subject.subjectName }}<br/>
+        {% endfor %}
         <input type="submit">
     </form>
 </body>
