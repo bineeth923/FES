@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Teacher</title>
+</head>
+<body>
+    <form method="post" action="{% url 'administrator:add_teacher' %}">
+        {% csrf_token %}
+        Username <input type="text" name="username"><br/>
+        Semester <input type="text" name="whichClass"><br/>
+        Subject
+        <select name="subject">
+        {% for subject in subjectName %}
+            <option value="{{ subject.id }}">{{ subject.subjectName }}</option>
+        {% endfor %}
+        </select>
+        <input type="submit">
+    </form>
+</body>
+</html>

@@ -15,6 +15,7 @@ def redirect_index(user):
         if is_student(user):
             return HttpResponseRedirect(reverse('student:index'))
         elif is_admin(user):
+            print('lala')
             return HttpResponseRedirect(reverse('administrator:index'))
         elif is_teacher(user):
             return HttpResponseRedirect(reverse('teacher:index'))
@@ -29,11 +30,12 @@ def common_login(request):
         print(username + password)
 
         user = authenticate(username=username, password=password)
+        print(user)
         if user is not None:
             login(request, user)
             return redirect_index(user)
         else:
             return HttpResponseRedirect(reverse('login') + '?status=auth-error')
-    return render(request, 'survey/index.html', )
+    return render(request, 'survey/index.html' )
 
 

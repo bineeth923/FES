@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Subject</title>
+</head>
+<body>
+    <form method="post" action="{% url 'administrator:add_subject' %}">
+        {% csrf_token %}
+        Subject Name <input type="text" name="subject"><br/>
+        <input type="submit">
+    </form>
+</body>
+</html>

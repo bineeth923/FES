@@ -3,16 +3,9 @@ from django.db import models
 from teacher.models import Teacher
 
 
-class FormLayout(models.Model):
-    layoutName = models.CharField(max_length=50)
-    layout = models.CharField(max_length=5000)
-
 
 class Survey(models.Model):
     surveyName = models.CharField(max_length=150)
-    dateCreated = models.DateField
-    dateEnded = models.DateField
-    formLayout = models.ForeignKey(FormLayout)
 
     def __str__(self):
         return self.surveyName
@@ -20,6 +13,7 @@ class Survey(models.Model):
 
 class Form(models.Model):
     formName = models.CharField(max_length=150)
+    teacher = models.ForeignKey(Teacher)
 
     def __str__(self):
         return self.formName
@@ -57,8 +51,3 @@ class Token(models.Model):
 
     def __str__(self):
         return self.tokenId
-
-
-class links(models.Model):
-    formLayout = models.ForeignKey(FormLayout)
-    teacher = models.ForeignKey(Teacher)
