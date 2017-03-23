@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add questions</title>
+</head>
+<body>
+<form action="{% url 'administrator:add_question' %}" method="post">
+    {% csrf_token %}
+    <input type="radio" name="question" value="mcq" > MCQ Question add<br>
+    <input type="radio" name="question" value="textview"> Text_view Question add<br>
+    <input type="submit">
+</form>
+<h2>Questions..</h2>
+{% for mcq_question in mcq_questions %}
+    <h3>{{ forloop.counter }}.{{ mcq_question.0 }}</h3><br/>
+    {% for option in mcq_question.1 %}
+        <input type="radio" name="option" value="{{ option.id }}"> {{ option.textName }} <br/>
+    {% endfor %}
+{% endfor %}
+</body>
+</html>

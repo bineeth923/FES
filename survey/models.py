@@ -3,7 +3,6 @@ from django.db import models
 from teacher.models import Teacher
 
 
-
 class Survey(models.Model):
     surveyName = models.CharField(max_length=150)
 

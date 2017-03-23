@@ -5,6 +5,7 @@
     <title>Add Subject</title>
 </head>
 <body>
+    <button onclick="location.href='{% url 'administrator:add_teacher' %}'">Add Teacher</button>
     <form method="post" action="{% url 'administrator:add_subject' %}">
         {% csrf_token %}
         Subject Name <input type="text" name="subject"><br/>

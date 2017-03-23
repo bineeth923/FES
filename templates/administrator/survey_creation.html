@@ -5,6 +5,7 @@
     <title>Add Survey</title>
 </head>
 <body>
+<button onclick="location.href='{% url 'administrator:add_question' %}'">Add Question</button>
 <form method="post" action="{% url 'administrator:survey' %}">
         {% csrf_token %}
         Survey  Name <input type="text" name="surveyName"><br/>

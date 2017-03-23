@@ -5,6 +5,7 @@
     <title>Add Teacher</title>
 </head>
 <body>
+    <button onclick="location.href='{% url 'administrator:survey' %}'">Create survey</button>
     <form method="post" action="{% url 'administrator:add_teacher' %}">
         {% csrf_token %}
         Username <input type="text" name="username"><br/>
