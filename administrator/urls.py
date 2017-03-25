@@ -7,5 +7,4 @@ urlpatterns=[
     url(r'^add_teacher/$' , admin_view.add_teacher , name='add_teacher'),
     url(r'^survey/$', admin_view.survey_creation, name='survey'),
     url(r'^add_question/$', admin_view.add_question, name='add_question'),
-    url(r'^add_mcq/$' , admin_view.add_question_mcq , name='add_question_mcq')
 ]

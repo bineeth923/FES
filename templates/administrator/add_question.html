@@ -9,14 +9,24 @@
     {% csrf_token %}
     <input type="radio" name="question" value="mcq" > MCQ Question add<br>
     <input type="radio" name="question" value="textview"> Text_view Question add<br>
+    MCQ<br/>
+    Question<input type="text" name="questionText"><br/>
+    Options<input type="text" name="1"><br/>
+    <input type="text" name="2"><br/>
+    <input type="text" name="3"><br/>
+    <input type="text" name="4"><br/>
+    <input type="text" name="5"><br/>
     <input type="submit">
 </form>
+
 <h2>Questions..</h2>
+{% if mcq_questions %}
 {% for mcq_question in mcq_questions %}
-    <h3>{{ forloop.counter }}.{{ mcq_question.0 }}</h3><br/>
-    {% for option in mcq_question.1 %}
-        <input type="radio" name="option" value="{{ option.id }}"> {{ option.textName }} <br/>
+    <h3>{{ forloop.counter }}.{{ mcq_question.0 }}</h3>
+    {% for options in mcq_question.1 %}
+        <input type="radio" name="option" value="{{ forloop.counter }}"> {{ options }} <br/>
     {% endfor %}
 {% endfor %}
+{% endif %}
 </body>
 </html>
