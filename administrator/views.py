@@ -2,8 +2,12 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse
 from django.http import HttpResponse
+
+import survey
 from functions import *
 from teacher import models as teacher_view
+from student import models as student_view
+from administrator import  models as admin_view
 from survey import models
 
 
@@ -24,6 +28,9 @@ def add_subject(request):
     subjects = teacher_view.Subject.objects.all()
     context = {'subjects': subjects}
     return render(request, 'administrator/add_subject.html', context=context)
+
+
+
 
 
 @login_required
@@ -94,11 +101,17 @@ def add_question(request):
             return HttpResponseRedirect(reverse('administrator:add_question'))
         elif request.POST['question'] == 'textview':
             return HttpResponseRedirect(reverse('administrator:add_question_textview'))
-    mcqs = models.MCQ.objects.filter(form=models.Form.objects.get(pk=1))
-    textView = models.TextView.objects.all()
-    mcq_questions = []
-    for mcq in mcqs:
-        options = (models.Options.objects.filter(mcq=mcq))
-        mcq_questions.append([mcq.textName, options])
-    context = {'mcq_questions': mcq_questions, 'text_view_questions': textView}
+    try:
+        mcqs = models.MCQ.objects.filter(form=models.Form.objects.get(formName = '1'))
+        if mcqs:
+            textView = models.TextView.objects.all()
+            mcq_questions = []
+            for mcq in mcqs:
+                options = (models.Options.objects.filter(mcq=mcq))
+                mcq_questions.append([mcq.textName, options])
+            context = {'mcq_questions': mcq_questions, 'text_view_questions': textView}
+        else:
+            context = {}
+    except:
+        context = {}
     return render(request, 'administrator/add_question.html', context=context)

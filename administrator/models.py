@@ -1,5 +1,4 @@
 from django.db import models
-
 from survey.models import Survey
 
 
@@ -8,5 +7,5 @@ class admin(models.Model):
 
 
 class UserGroup(models.Model):
-    userGroupName = models.CharField(max_length=50)
-    survey = models.ForeignKey(Survey)
+    userGroupName=models.CharField(max_length=50)
+    survey=models.ForeignKey(Survey)
