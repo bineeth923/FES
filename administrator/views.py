@@ -70,6 +70,8 @@ def survey_creation(request):
     return render(request, 'administrator/survey_creation.html')
 
 
+
+
 @login_required
 @user_passes_test(is_admin)
 def add_question(request):
@@ -94,11 +96,17 @@ def add_question(request):
             return HttpResponseRedirect(reverse('administrator:add_question'))
         elif request.POST['question'] == 'textview':
             return HttpResponseRedirect(reverse('administrator:add_question_textview'))
-    mcqs = models.MCQ.objects.filter(form=models.Form.objects.get(pk=1))
-    textView = models.TextView.objects.all()
-    mcq_questions = []
-    for mcq in mcqs:
-        options = (models.Options.objects.filter(mcq=mcq))
-        mcq_questions.append([mcq.textName, options])
-    context = {'mcq_questions': mcq_questions, 'text_view_questions': textView}
+    try:
+        mcqs = models.MCQ.objects.filter(form=models.Form.objects.get(formName = '1'))
+        if mcqs:
+            textView = models.TextView.objects.all()
+            mcq_questions = []
+            for mcq in mcqs:
+                options = (models.Options.objects.filter(mcq=mcq))
+                mcq_questions.append([mcq.textName, options])
+            context = {'mcq_questions': mcq_questions, 'text_view_questions': textView}
+        else:
+            context = {}
+    except:
+        context = {}
     return render(request, 'administrator/add_question.html', context=context)
