@@ -1,15 +1,28 @@
+
+
 <!DOCTYPE html>
+
+
+
 <html lang="en">
 <head>
+
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'teacher/teacher_style.css' %}" >
+
     <meta charset="UTF-8">
     <title>Add Teacher</title>
 </head>
 <body>
+<div class="a2">
+
     <button onclick="location.href='{% url 'administrator:survey' %}'">Create survey</button>
     <form method="post" action="{% url 'administrator:add_teacher' %}">
         {% csrf_token %}
+    <div class="a1">
         Username <input type="text" name="username"><br/>
         Semester <input type="text" name="whichClass"><br/>
+    </div>
         Subject
         <select name="subject">
         {% for subject in subjectName %}
@@ -21,5 +34,6 @@
             {{ teacher.teacherName }}<br/>
         {% endfor %}
     </form>
+</div>>
 </body>
 </html>

@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+     {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'administrator/add_teacher_style.css' %}" >
+
+<link img="back1.jpg" type="text/css" href="{% static 'administrator/../../administrator/static/p3.jpg' %}" >
+
     <meta charset="UTF-8">
     <title>Add Teacher</title>
 </head>
 <body>
+ <body background= "{% static 'p3.jpg' %}">
     <button onclick="location.href='{% url 'administrator:add_subject' %}'">Add Subject</button>
 </body>
 </html>
