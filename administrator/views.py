@@ -77,6 +77,8 @@ def survey_creation(request):
     return render(request, 'administrator/survey_creation.html')
 
 
+
+
 @login_required
 @user_passes_test(is_admin)
 def add_question(request):
