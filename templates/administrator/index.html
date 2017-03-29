@@ -1,16 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
      {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'administrator/add_teacher_style.css' %}" >
-
-<link img="back1.jpg" type="text/css" href="{% static 'administrator/../../administrator/static/p3.jpg' %}" >
-
-    <meta charset="UTF-8">
-    <title>Add Teacher</title>
+<html>
+<head lang="en">
+    <link rel="stylesheet" type="text/css" href="{% static 'survey/index_style.css' %}" >
+    <title>Welcome Admin!</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
- <body background= "{% static 'p3.jpg' %}">
-    <button onclick="location.href='{% url 'administrator:add_subject' %}'">Add Subject</button>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">FES</a>
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="container">
+      <p>THIS PAGE HELPS TO ADD SUBJECTSS<br/> AND THE DIFFERENT STEPS ARE......</p>
+        <ol>
+            <li>PRESS ON <div class="ita">ADD SUBJECT</div> BUTTON </li>
+            <li>TYPE THE REQUIRED SUBJECT NAME</li>
+            <li>SAVE IT AND ADD NEXT SUBJECT IF YOU WANT</li>
+        </ol>
+</div>
+    <div class="header">
+        <button onclick="location.href='{% url 'administrator:add_subject' %}'">Add Subject</button>
+    </div>
 </body>
 </html>
