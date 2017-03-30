@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,11 +16,13 @@
     <input type="text" name="2"><br/>
     <input type="text" name="3"><br/>
     <input type="text" name="4"><br/>
-    <input type="text" name="5"><br/>
+    <input type="text" name="5"><br/><br/><br/>
+    Textview<br/>
+    Question<input type="text" name="questionText"><br/>
     <input type="submit">
 </form>
 
-<h2>Questions..</h2>
+<h2>MCQ Questions..</h2>
 {% if mcq_questions %}
 {% for mcq_question in mcq_questions %}
     <h3>{{ forloop.counter }}.{{ mcq_question.0 }}</h3>
@@ -27,6 +30,12 @@
         <input type="radio" name="option" value="{{ forloop.counter }}"> {{ options }} <br/>
     {% endfor %}
 {% endfor %}
+{% endif %}
+<h2>Text view questions</h2>
+{% if text_view_questions %}
+    {% for question in text_view_questions %}
+        <h3>{{ forloop.counter }}.{{ question.textName }}</h3>
+    {% endfor %}
 {% endif %}
 </body>
 </html>

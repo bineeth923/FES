@@ -93,13 +93,22 @@ def add_question(request):
                     option_object.result = False
                     option_object.mcq = question
                     option_object.save()
-            return HttpResponseRedirect(reverse('administrator:add_question'))
+            return HttpResponseRedirect(reverse('administrator:add_question') + '?status=sucess')
         elif request.POST['question'] == 'textview':
-            return HttpResponseRedirect(reverse('administrator:add_question_textview'))
+            questionText = request.POST['questionText']
+            for form in models.Form.objects.all():
+                question = models.TextView()
+                question.textName = questionText
+                question.result = ''
+                question.form = form
+                question.save()
+            return HttpResponseRedirect(reverse('administrator:add_question') + '?status=success')
+        else:
+            return HttpResponseRedirect(reverse('administrator:add_question') + '?status=error')
     try:
         mcqs = models.MCQ.objects.filter(form=models.Form.objects.get(formName = '1'))
         if mcqs:
-            textView = models.TextView.objects.all()
+            textView = models.TextView.objects.filter(form = models.Form.objects.get(formName='1'))
             mcq_questions = []
             for mcq in mcqs:
                 options = (models.Options.objects.filter(mcq=mcq))

@@ -12,9 +12,7 @@ class UserGroupException(Exception):
 
 def redirect_index(user):
     try:
-        if is_student(user):
-            return HttpResponseRedirect(reverse('student:index'))
-        elif is_admin(user):
+        if is_admin(user):
             print('lala')
             return HttpResponseRedirect(reverse('administrator:index'))
         elif is_teacher(user):

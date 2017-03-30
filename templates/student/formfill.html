@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Fill</title>
+</head>
+<body>
+    Teacher Name : {{ form.teacher.teacherName }}<br/>
+        {% for option in options %}
+            {{ forloop.counter }}.{{ option.mcq }}<br/>
+            {% for option in option.options %}
+                {{ option }}<br/>
+            {% endfor %}
+            <br/>
+    {% endfor %}
+</body>
+</html>
