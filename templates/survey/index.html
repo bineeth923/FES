@@ -1,49 +1,59 @@
+  {% load static %}
+<html >
+<head lang="en">
 
-<html lang="en">
-<head>
-     {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'survey/survey_style.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'survey/survey_style.css'%} ">
 
-<link img="back1.jpg" type="text/css" href="{% static 'survey/../../survey/static/p5.jpg' %}" >
+ <head method="post" action="{% url 'login' %}">
+      {% csrf_token %}
 
-<form method="post" action="{% url 'login' %}">
-  {% csrf_token %}
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="{% static 'BOOTSTRAP.css' %}">
+     <script src="{% static 'jquery.js' %}"></script>
+    <script src="{% static 'bootstrap.js' %}"></script>
 
-  <body background= "{% static 'p5.jpg' %}">
+ </head>
+</head>
+
+    <body background= "{% static 'p5.jpg' %}">
+
+<form  method="post" action="/FES/">
+    {% csrf_token %}
 
 <div class="rit_s">
-<center><h1>  <p1>RAJIV GANDHI INSTITUTE OF TECHNILOGY</p1>    </h1></center>
-<center><h1>KOTTAYAM</h1></center>
+    <center><h1>  <p1>RAJIV GANDHI INSTITUTE OF TECHNILOGY</p1>    </h1></center>
+    <center><h1>KOTTAYAM</h1></center>
 </div>
 
 <div class="fe_s">
-<marquee  ><h1>FACULTY EVALUATION</h1> </marquee>
-</div>
-</body>
-    <body  class="c1" data-admin-utc-offset="19800">
-    <div id="c">
-<center>
-<div id="username_s">
-
-    <label class="required" for="id_username">Username:</label> <input autofocus="" id="id_username" maxlength="254" name="username" required="" type="text">
-</div>
-
-<div id="username_s">
-<div class="form_row">
-    <label class="required" for="id_password">Password:</label> <input id="id_password" name="password" required="" type="password">
-    <input name="next" value="/admin/" type="hidden">
-</div>
-</div>
-
-<div class="submit_s">
-    <label>&nbsp;</label>
-    <input value="Log in" type="submit">
+    <marquee><h1>FACULTY EVALUATION</h1> </marquee>
 </div>
 
 
-</center>>
+<div id="c">
+    <center>
+    <div id="username_s">
+
+        <label class="required" for="id_username">Username:</label> <input autofocus="" id="id_username" maxlength="254" name="username" required="" type="text">
+    </div>
+
+    <div id="username_s">
+        <div class="form_row">
+            <label class="required" for="id_password">Password:</label> <input id="id_password" name="password" required="" type="password">
+            <input name="next" value="/admin/" type="hidden">
+        </div>
+    </div>
+
+    <div class="submit_s">
+        <label>&nbsp;</label>
+        <input value="Log in" type="submit">
+    </div>
+
+
+    </center>
 </div>
+
 </form>
 </body>
-</head>
-</html>
+</html>>

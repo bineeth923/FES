@@ -1,39 +1,64 @@
-
-
 <!DOCTYPE html>
-
-
+    {% load static %}
 
 <html lang="en">
 <head>
 
-    {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'teacher/teacher_style.css' %}" >
 
-    <meta charset="UTF-8">
-    <title>Add Teacher</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'survey/add_tea_styles.css' %}" >
+
+        <title>Add Teacher</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="{% static 'BOOTSTRAP.css' %}">
+            <script src="{% static 'jquery.js' %}"></script>
+            <script src="{% static 'bootstrap.js' %}"></script>
 </head>
-<body>
-<div class="a2">
 
-    <button onclick="location.href='{% url 'administrator:survey' %}'">Create survey</button>
+<body>
+     <nav class="navbar navbar-inverse">
+           <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">FES</a>
+                  </div>
+            </div>
+    </nav>
+
+     <div class="container">
+        <div class="panel-group ">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Adding Teachers.....</div>
+                  <div class="panel-body">
+                    <p>THIS PAGE HELPS TO ADD TEACHERS<br/> AND THE DIFFERENT STEPS ARE......</p>
+                    <ol>
+                        <li>PRESS
+                            <button onclick="location.href='{% url 'administrator:survey' %}'">Create Survey</button>
+                             TO CREATE SURVEY
+                        </li>
+                        <li>ADD TEACHERS USERNAME and SEMESTER</li>
+                        <li>SAVE IT AND ADD NEXT TEACHER IF YOU WANT</li>
+                    </ol>
+
     <form method="post" action="{% url 'administrator:add_teacher' %}">
         {% csrf_token %}
-    <div class="a1">
-        Username <input type="text" name="username"><br/>
-        Semester <input type="text" name="whichClass"><br/>
-    </div>
-        Subject
-        <select name="subject">
-        {% for subject in subjectName %}
-            <option value="{{ subject.id }}">{{ subject.subjectName }}</option>
-        {% endfor %}
-        </select>
+
+            Username <input type="text" name="username"><br/>
+            Semester <input type="text" name="whichClass"><br/>
+            Subject
+                <select name="subject">
+                        {% for subject in subjectName %}
+                    <option value="{{ subject.id }}">{{ subject.subjectName }}</option>
+                        {% endfor %}
+                </select>
+
         <input type="submit"><br/>
-        {% for teacher in teachers %}
-            {{ teacher.teacherName }}<br/>
-        {% endfor %}
+            {% for teacher in teachers %}
+                {{ teacher.teacherName }}<br/>
+             {% endfor %}
     </form>
-</div>>
+       </div>
+       </div>
+       </div>
+       </div>
 </body>
 </html>

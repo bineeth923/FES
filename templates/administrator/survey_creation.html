@@ -1,15 +1,49 @@
+  {% load static %}
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'survey/sur_cre_style.css' %}" >
     <meta charset="UTF-8">
-    <title>Add Survey</title>
+ <title>Add Survey</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="{% static 'BOOTSTRAP.css' %}">
+      <script src="{% static 'jquery.js' %}"></script>
+      <script src="{% static 'bootstrap.js' %}"></script>
 </head>
+
 <body>
-<button onclick="location.href='{% url 'administrator:add_question' %}'">Add Question</button>
+     <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">FES</a>
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="container">
+    <div class="panel-group ">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Welcome to FES</div>
+              <div class="panel-body">
+                  <div class="a1"> <p>THIS PAGE HELPS TO CREATE SURVEY AND TO ADD QUESTIONS.<br/> AND THE DIFFERENT STEPS ARE......</p></div>
+                <ol>
+                    <li>PRESS
+                        <button onclick="location.href='{% url 'administrator:add_question' %}'">Add Question</button>
+                         TO ADD QUESTION
+                    </li>
+                    <li>ENTER THE QUESTIONS</li>
+                    <li>SAVE IT AND ADD NEXT QUESTION IF YOU WANT</li>
+                </ol>
 <form method="post" action="{% url 'administrator:survey' %}">
         {% csrf_token %}
-        Survey  Name <input type="text" name="surveyName"><br/>
-        <input type="submit">
-    </form>
+            Survey  Name <input type="text" name="surveyName"><br/>
+
+</form>
+            </div>
+      </div>
+    </div>
+    </div> <input type="submit">
 </body>
 </html>
