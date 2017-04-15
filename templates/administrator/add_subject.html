@@ -12,7 +12,8 @@
     <script src="{% static 'bootstrap.js' %}"></script>
 </head>
 
-<>
+
+
      <nav class="navbar navbar-inverse">
           <div class="container-fluid">
             <div class="navbar-header">
@@ -21,12 +22,46 @@
           </div>
       </nav>
 
+      <div class="container1">
+    <div class="panel-group1 ">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Subject Name <input type="text" name="subject"><br/></div>
+              <div class="panel-body1">
+                <p>ADDIND SUBJECTS AND DISPALYING THEM ....<br/>
+              </div>
+
+
+
+
+    <form method="post" action="{% url 'administrator:add_subject' %}">
+        {% csrf_token %}
+            <div class="s1">
+
+
+               ENTERED SUBJECTS ARE:</br> </br>
+
+                {% for subject in subjects %}
+             <li>   {{ subject.subjectName }}<br/></li>
+                {% endfor %}
+
+
+        <input type="submit">
+            </div>
+    </form>
+
+  </div>
+      </div>
+      </div>
+
+
+
+
       <div class="container">
     <div class="panel-group ">
       <div class="panel panel-primary">
         <div class="panel-heading">Add Subjects...</div>
               <div class="panel-body">
-                <p>THIS PAGE HELPS TO ADD SUBJECTSS<br/> AND THE DIFFERENT STEPS ARE......</p>
+                <p1>THIS PAGE HELPS TO ADD SUBJECTSS<br/> AND THE DIFFERENT STEPS ARE......</p1>
                 <ol>
                     <li>PRESS
                         <button onclick="location.href='{% url 'administrator:add_teacher' %}'">Add teacher</button>
@@ -41,36 +76,8 @@
       </div>
 
 
-      <div class="container1">
-    <div class="panel-group1 ">
-      <div class="panel panel-primary">
-        <div class="panel-heading">Subject Name <input type="text" name="subject"><br/></div>
-              <div class="panel-body1">
-                <p>Adding subjects and displaying them....<br/>
-              </div>
 
 
-
-
-    <form method="post" action="{% url 'administrator:add_subject' %}">
-        {% csrf_token %}
-            <div class="s1">
-
-
-                Entered Subjects Are:</br> </br>
-
-                {% for subject in subjects %}
-             <li>   {{ subject.subjectName }}<br/></li>
-                {% endfor %}
-
-
-        <input type="submit">
-            </div>
-    </form>
-
-  </div>
-      </div>
-      </div>
 
 </body>
 </html>

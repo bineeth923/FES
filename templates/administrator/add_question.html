@@ -1,32 +1,69 @@
 <!DOCTYPE html>
+    {% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Add questions</title>
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'survey/add_que_style.css' %}" >
+
+        <title>Add Question</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="{% static 'BOOTSTRAP.css' %}">
+            <script src="{% static 'jquery.js' %}"></script>
+            <script src="{% static 'bootstrap.js' %}"></script>
 </head>
-<body>
-<form action="{% url 'administrator:add_question' %}" method="post">
+
+<p1>
+  <nav class="navbar navbar-inverse">
+           <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">FES</a>
+                  </div>
+            </div>
+    </nav>
+</p1>
+ <p2> <input type="radio" name="question" value="mcq" > MCQ Question add<br>
+     <input type="radio" name="question" value="textview"> Text_view Question add<br></p2>
+
+      <div class="container">
+        <div class="panel-group ">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Adding Questions.....</div>
+                  <div class="panel-body">
+
+<ol action="{% url 'administrator:add_question' %}" method="post">
     {% csrf_token %}
-    <input type="radio" name="question" value="mcq" > MCQ Question add<br>
-    <input type="radio" name="question" value="textview"> Text_view Question add<br>
+<p3>
     MCQ<br/>
-    Question<input type="text" name="questionText"><br/>
-    Options<input type="text" name="1"><br/>
-    <input type="text" name="2"><br/>
-    <input type="text" name="3"><br/>
-    <input type="text" name="4"><br/>
-    <input type="text" name="5"><br/>
-    <input type="submit">
+    <ul> Question<br/>
+        <li> <input type="text" name="questionText"><br/></li></ul>
+    <ol>  Options <br/>
+        <li><input type="text" name="1"><br/></li>
+         </p3>
+    <li><input type="text" name="2"><br/></li>
+    <li><input type="text" name="3"><br/></li>
+    <li><input type="text" name="4"><br/></li>
+    <li><input type="text" name="5"><br/></li>
+</ol>
+
 </form>
+       </div>
+       </div>
+       </div>
+       </div>
+<div class="box">
+<input type="submit"></div>
 
 <h2>Questions..</h2>
 {% if mcq_questions %}
 {% for mcq_question in mcq_questions %}
     <h3>{{ forloop.counter }}.{{ mcq_question.0 }}</h3>
-    {% for options in mcq_question.1 %}
+    {% for options in mcq_question.1 %}7
         <input type="radio" name="option" value="{{ forloop.counter }}"> {{ options }} <br/>
     {% endfor %}
 {% endfor %}
 {% endif %}
+
 </body>
 </html>
