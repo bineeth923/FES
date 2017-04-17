@@ -9,7 +9,12 @@
     <form method="post" action="{% url 'administrator:add_teacher' %}">
         {% csrf_token %}
         Username <input type="text" name="username"><br/>
-        Semester <input type="text" name="whichClass"><br/>
+        Semester
+        <select name="semester">
+            {% for semester in semesters %}
+                <option value="{{ semester.id }}">{{ semester.semesterName }}</option>
+            {% endfor %}
+        </select>
         Subject
         <select name="subject">
         {% for subject in subjectName %}
@@ -18,7 +23,7 @@
         </select>
         <input type="submit"><br/>
         {% for teacher in teachers %}
-            {{ teacher.teacherName }}<br/>
+            {{ teacher.teacherName }}   {{ teacher.Semester.semesterName }}   {{ teacher.subject.subjectName }}<br/>
         {% endfor %}
     </form>
 </body>

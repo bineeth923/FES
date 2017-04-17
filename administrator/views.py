@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse
 from django.http import HttpResponse
@@ -12,6 +13,11 @@ from survey import models
 def index(request):
     return render(request, 'administrator/index.html')
 
+@login_required
+@user_passes_test(is_admin)
+def logout_user(user):
+    logout(user)
+    return HttpResponseRedirect(reverse('administrator:index') + '?status=loggout+successfully')
 
 @login_required
 @user_passes_test(is_admin)
@@ -28,28 +34,47 @@ def add_subject(request):
 
 @login_required
 @user_passes_test(is_admin)
+def add_semester(request):
+    if request.POST:
+        sem = request.POST['semesterName']
+        semester = teacher_view.Semester(semesterName=sem)
+        semester.save()
+        return HttpResponseRedirect(reverse('administrator:add_semester') + '?status=success')
+    semesters = teacher_view.Semester.objects.all()
+    context = {'semesters' : semesters}
+    return render(request , 'administrator/add_semester.html' , context)
+
+
+
+
+@login_required
+@user_passes_test(is_admin)
 def add_teacher(request):
     if request.POST:
         username = request.POST['username']
-        whichClass = request.POST['whichClass']
+        semester = int(request.POST['semester'])
         subject = int(request.POST['subject'])
-        teacher = teacher_view.Teacher(teacherName=username, Semester=whichClass,
+        teacher = teacher_view.Teacher(teacherName=username, Semester=teacher_view.Semester.objects.get(pk=semester),
                                        subject=teacher_view.Subject.objects.get(pk=subject))
         teacher.save()
         return HttpResponseRedirect(reverse('administrator:add_teacher') + '?status=success')
     allSubjects = teacher_view.Subject.objects.all()
     teachers = teacher_view.Teacher.objects.all()
+    semesters = teacher_view.Semester.objects.all()
     context = {'subjectName': allSubjects,
-               'teachers': teachers
+               'teachers': teachers,
+               'semesters' : semesters
                }
     return render(request, 'administrator/add_teacher.html', context=context)
 
 
-def form_creation():
+def form_creation(sem):
     for id, teacher in enumerate(models.Teacher.objects.all()):
         form = models.Form()
         form.formName = id
         form.teacher = teacher
+        form.semester = sem
+        form.survey = models.Survey.objects.filter(sem=sem)[0]
         form.save()
     return
 
@@ -59,15 +84,20 @@ def form_creation():
 def survey_creation(request):
     if request.POST:
         surveyName = request.POST['surveyName']
-        survey = models.Survey(surveyName=surveyName)
+        sem = request.POST['semester']
+        semester = models.Semester.objects.get(pk=int(sem))
+        survey = models.Survey(surveyName=surveyName , sem = semester)
         survey.save()
-        form_creation()
+        form_creation(semester)
         try:
             return HttpResponseRedirect(reverse('administrator:add_question'))
         except Exception:
             return HttpResponseRedirect(reverse('administrator:survey') + '?status=error')
-
-    return render(request, 'administrator/survey_creation.html')
+    semesters = models.Semester.objects.all()
+    context={
+        'semesters' : semesters
+    }
+    return render(request, 'administrator/survey_creation.html' , context)
 
 
 
@@ -79,6 +109,7 @@ def add_question(request):
         if request.POST['question'] == 'mcq':
             print('yeh!')
             questionText = request.POST['questionText']
+            print(questionText)
             all_options = []
             for i in range(1, 6):
                 all_options += [request.POST[str(i)]]
@@ -90,12 +121,13 @@ def add_question(request):
                 for option in all_options:
                     option_object = models.Options()
                     option_object.textName = option
-                    option_object.result = False
+                    option_object.result = 0
                     option_object.mcq = question
+                    option_object.form = form
                     option_object.save()
             return HttpResponseRedirect(reverse('administrator:add_question') + '?status=sucess')
         elif request.POST['question'] == 'textview':
-            questionText = request.POST['questionText']
+            questionText = request.POST['questionTextView']
             for form in models.Form.objects.all():
                 question = models.TextView()
                 question.textName = questionText

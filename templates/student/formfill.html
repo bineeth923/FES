@@ -5,13 +5,24 @@
     <title>Form Fill</title>
 </head>
 <body>
+<form method="post" action="{% url 'student:index' %}">
+{% csrf_token %}
+    <input type="hidden" name="form" value="{{ form.formName }}">
     Teacher Name : {{ form.teacher.teacherName }}<br/>
-        {% for option in options %}
-            {{ forloop.counter }}.{{ option.mcq }}<br/>
-            {% for option in option.options %}
-                {{ option }}<br/>
-            {% endfor %}
-            <br/>
+    MCQ
+    {% for option in options %}
+        {{ forloop.counter }}.{{ option.mcq }}<br/>
+        {% for option in option.options %}
+            <input type="radio" name="{{ forloop.parentloop.counter0 }}" value="{{ forloop.counter0 }}">{{ option }}<br/>
+        {% endfor %}
+        <br/>
     {% endfor %}
+    Text View
+    {% for question in textView %}
+        <br/>{{ forloop.counter }}.{{ question.textName }}
+        <br/><input type="text" name="{{ question }}">
+    {% endfor %}
+    <br/><input type="submit">
+</form>
 </body>
 </html>

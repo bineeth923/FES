@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to FES</title>
+    <title>Home</title>
 </head>
 <body>
     {% for semester , primaryKey in zippedData %}
-        <a href="sem/{{ primaryKey }}">{{ semester.semesterName }}</a><br/>
+        <a href="{{ primaryKey }}">{{ semester.semesterName }}</a>
     {% endfor %}
 </body>
 </html>

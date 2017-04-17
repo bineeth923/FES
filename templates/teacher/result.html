@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+</head>
+<body>
+    {% if mcq_questions %}
+        {% for mcq in mcq_questions %}
+            <h2>{{ mcq.0 }}<br/></h2>
+            {% for option in mcq.1 %}
+                {{ option.textName }} : {{ option.result }}<br/>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

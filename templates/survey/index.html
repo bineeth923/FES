@@ -1,8 +1,12 @@
 
 <form method="post" action="{% url 'login' %}">
   {% csrf_token %}
+    <input type="radio" name="userType" value="admin"/>Admin/Teacher<br/>
+    <input type="radio" name="userType" value="student">Student<br/>
+
   Username<input type="text" name="username">
   Password<input type="password" name="password">
   <input type="submit">
+
 </form>
 

@@ -8,8 +8,10 @@
 <body>
 <form action="{% url 'administrator:add_question' %}" method="post">
     {% csrf_token %}
-    <input type="radio" name="question" value="mcq" > MCQ Question add<br>
-    <input type="radio" name="question" value="textview"> Text_view Question add<br>
+    <label>
+        <input type="radio" name="question" value="mcq">MCQ Question add<br>
+        <input type="radio" name="question" value="textview"> Text_view Question add<br>
+    </label>
     MCQ<br/>
     Question<input type="text" name="questionText"><br/>
     Options<input type="text" name="1"><br/>
@@ -18,7 +20,7 @@
     <input type="text" name="4"><br/>
     <input type="text" name="5"><br/><br/><br/>
     Textview<br/>
-    Question<input type="text" name="questionText"><br/>
+    Question<input type="text" name="questionTextView"><br/>
     <input type="submit">
 </form>
 

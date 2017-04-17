@@ -9,6 +9,12 @@
 <form method="post" action="{% url 'administrator:survey' %}">
         {% csrf_token %}
         Survey  Name <input type="text" name="surveyName"><br/>
+        Select survey
+        <select name="semester">
+            {% for semester in semesters %}
+                <option value="{{ semester.pk }}">{{ semester.semesterName }}</option>
+            {% endfor %}
+        </select>
         <input type="submit">
     </form>
 </body>

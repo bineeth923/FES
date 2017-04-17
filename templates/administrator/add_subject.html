@@ -8,7 +8,7 @@
     <button onclick="location.href='{% url 'administrator:add_teacher' %}'">Add Teacher</button>
     <form method="post" action="{% url 'administrator:add_subject' %}">
         {% csrf_token %}
-        Subject Name <input type="text" name="subject"><br/>
+        Subject Name <input type="text" name="subject" required><br/>
         {% for subject in subjects %}
             {{ subject.subjectName }}<br/>
         {% endfor %}

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Froms </title>
+</head>
+<body>
+    {% for form , primaryKey in zippedData %}
+        <a href="form/{{ primaryKey }}">{{ form.teacher.teacherName }}</a><br/>
+    {% endfor %}
+</body>
+</html>
