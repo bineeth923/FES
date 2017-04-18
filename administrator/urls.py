@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from administrator import views as admin_view
 
 urlpatterns=[

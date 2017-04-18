@@ -3,28 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Teacher</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button2 {
+        background-color: white;
+        color: black;
+        border: 2px solid #008CBA;
+        border-radius: 5px;
+        margin-left: 2em;
+    }
+    .button2:hover {
+        background-color: #008CBA;
+        color: white;
+    }
+</style>
 </head>
 <body>
-    <button onclick="location.href='{% url 'administrator:survey' %}'">Create survey</button>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Faculty Evaluation System</a>
+        </div>
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="/FES/administrator/logout/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+          </ul>
+      </div>
+    </nav>
+    <div class="panel-group col-sm-2 col-sm-offset-0">
+    <div class="panel panel-info ">
+      <div class="panel-heading" style="text-align: center">So Far..</div>
+      <div class="panel-body">
+          <ul>
+              <li style="color: red">Add Subject</li>
+              <li style="color: red">Add Semester</li>
+              <li style="color: red">Add teacher</li>
+              <li>Create survey</li>
+              <li>Add questions</li>
+          </ul>
+      </div>
+    </div>
+</div>
+
+
     <form method="post" action="{% url 'administrator:add_teacher' %}">
         {% csrf_token %}
-        Username <input type="text" name="username"><br/>
-        Semester
-        <select name="semester">
-            {% for semester in semesters %}
-                <option value="{{ semester.id }}">{{ semester.semesterName }}</option>
-            {% endfor %}
-        </select>
-        Subject
-        <select name="subject">
-        {% for subject in subjectName %}
-            <option value="{{ subject.id }}">{{ subject.subjectName }}</option>
-        {% endfor %}
-        </select>
-        <input type="submit"><br/>
-        {% for teacher in teachers %}
-            {{ teacher.teacherName }}   {{ teacher.Semester.semesterName }}   {{ teacher.subject.subjectName }}<br/>
-        {% endfor %}
+        <div class="panel-group col-sm-6 col-sm-offset-2">
+        <div class="panel panel-info ">
+          <div class="panel-heading" style="text-align: center;font-size:2.5em ">Add Teachers</div>
+          <div class="panel-body">
+              <div class="input-group" style="margin-top: 2em">
+                  <span class="input-group-addon">Username</span>
+                  <input id="msg" type="text" class="form-control" name="username" placeholder="This will the teachers username to login (required)" required>
+              </div>
+          <div class="form-group">
+              <label for="semester" style="margin-top: .8em">Semester:</label>
+              <select class="form-control" id="semester" name="semester">
+                {% for semester in semesters %}
+                     <option value="{{ semester.id }}">{{ semester.semesterName }}</option>
+                {% endfor %}
+              </select>
+
+          <label for="subject" style="margin-top: .8em">Subject:</label>
+              <select class="form-control" id="subject" name="subject">
+                {% for subject in subjectName %}
+                    <option value="{{ subject.id }}">{{ subject.subjectName }}</option>
+                {% endfor %}
+              </select>
+          </div>
+              <input type="submit" class="button button2" style="width: 250px ; margin-left: 13em; margin-top: 2em;margin-bottom:2em" ><br/>
+             <table class="table table-hover">
+                 <thead>
+                      <tr>
+                        <th>Name/Username</th>
+                        <th>Semester</th>
+                        <th>Subject</th>
+                      </tr>
+                 </thead>
+                 <tbody>
+                 {% for teacher in teachers %}
+                      <tr>
+                        <td>{{ teacher.teacherName }}</td>
+                        <td>{{ teacher.Semester.semesterName }}</td>
+                        <td>{{ teacher.subject.subjectName }}</td>
+                      </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+              <label style="margin-left: 10em">Step 4 - Create Survey ==> </label>
+              <button onclick="location.href='{% url 'administrator:survey' %}'" class="button button2">Create survey</button>
+          </div>
+        </div>
+    </div>
     </form>
 </body>
 </html>

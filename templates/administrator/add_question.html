@@ -4,40 +4,157 @@
 <head>
     <meta charset="UTF-8">
     <title>Add questions</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button2 {
+        background-color: white;
+        color: black;
+        border: 2px solid #008CBA;
+        border-radius: 5px;
+        margin-left: 2em;
+    }
+    .button2:hover {
+        background-color: #008CBA;
+        color: white;
+    }
+</style>
 </head>
 <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Faculty Evaluation System</a>
+        </div>
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="/FES/administrator/logout/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+          </ul>
+      </div>
+    </nav>
+    <div class="panel-group col-sm-2 col-sm-offset-0">
+    <div class="panel panel-info ">
+      <div class="panel-heading" style="text-align: center">So Far..</div>
+      <div class="panel-body">
+          <ul>
+              <li style="color: red">Add Subject</li>
+              <li style="color: red">Add Semester</li>
+              <li style="color: red">Add teacher</li>
+              <li style="color: red">Create survey</li>
+              <li>Add questions</li>
+          </ul>
+      </div>
+    </div>
+</div>
+
 <form action="{% url 'administrator:add_question' %}" method="post">
     {% csrf_token %}
-    <label>
-        <input type="radio" name="question" value="mcq">MCQ Question add<br>
-        <input type="radio" name="question" value="textview"> Text_view Question add<br>
-    </label>
-    MCQ<br/>
-    Question<input type="text" name="questionText"><br/>
-    Options<input type="text" name="1"><br/>
-    <input type="text" name="2"><br/>
-    <input type="text" name="3"><br/>
-    <input type="text" name="4"><br/>
-    <input type="text" name="5"><br/><br/><br/>
-    Textview<br/>
-    Question<input type="text" name="questionTextView"><br/>
-    <input type="submit">
+      <div class="panel-group col-sm-8 col-sm-offset-1">
+            <div class="panel panel-info ">
+                  <div class="panel-heading" style="text-align: center;font-size:2.5em ">Add Questions</div>
+                  <div class="panel-body">
+                      <h4>Which type of question is the one you are going to add?</h4>
+                      <div class="radio">
+      <label><input type="radio" name="question" value="mcq" id="mcq">MCQ Question </label>
+    </div>
+                      <div class="radio">
+      <label><input type="radio" name="question" value="textview" id="textview"> Text_view Question</label>
+    </div>
+                      <div id="MCQ" style="display: none">
+                          <h4>MCQ</h4>
+                          <div class="input-group" style="margin-top: 2em">
+                              <span class="input-group-addon">Question</span>
+                              <input id="msg" type="text" class="form-control" name="questionText" placeholder="Enter your question here. (required)" >
+                          </div>
+                          <div class="input-group" style="margin-top: 2em">
+                              <span class="input-group-addon">Option 1</span>
+                              <input id="msg" type="text" class="form-control" name="1" placeholder="Enter your First option. (required)" >
+                          </div>
+                          <div class="input-group" style="margin-top: .5em">
+                              <span class="input-group-addon">Option 2</span>
+                              <input id="msg" type="text" class="form-control" name="2" placeholder="Enter your Second option. (required)" >
+                          </div>
+                          <div class="input-group" style="margin-top: .5em">
+                              <span class="input-group-addon">Option 3</span>
+                              <input id="msg" type="text" class="form-control" name="3" placeholder="Enter your Third option. (required)" >
+                          </div>
+                          <div class="input-group" style="margin-top: .5em">
+                              <span class="input-group-addon">Option 4</span>
+                              <input id="msg" type="text" class="form-control" name="4" placeholder="Enter your Fourth option. (required)" >
+                          </div>
+                          <div class="input-group" style="margin-top: .5em">
+                              <span class="input-group-addon">Option 5</span>
+                              <input id="msg" type="text" class="form-control" name="5" placeholder="Enter your Fifth option. (required)" >
+                          </div>
+                      </div>
+                      <div id="Textview" style="display: none">
+                          <div class="input-group" style="margin-top: 2em">
+                              <span class="input-group-addon">Question</span>
+                              <input id="msg" type="text" class="form-control" name="questionTextView" placeholder="Enter your question here. (required)" >
+                          </div>
+                      </div>
+                  </div>
+                <input type="submit" class="button button2" style="width: 250px ; margin-left: 20em; margin-top: 2em;margin-bottom:2em" ><br/>
+            </div>
+        </div>
 </form>
-
-<h2>MCQ Questions..</h2>
 {% if mcq_questions %}
-{% for mcq_question in mcq_questions %}
-    <h3>{{ forloop.counter }}.{{ mcq_question.0 }}</h3>
-    {% for options in mcq_question.1 %}
-        <input type="radio" name="option" value="{{ forloop.counter }}"> {{ options }} <br/>
-    {% endfor %}
-{% endfor %}
-{% endif %}
-<h2>Text view questions</h2>
-{% if text_view_questions %}
-    {% for question in text_view_questions %}
-        <h3>{{ forloop.counter }}.{{ question.textName }}</h3>
-    {% endfor %}
-{% endif %}
+    <div class="panel-group col-sm-9 col-sm-offset-2">
+<div class="panel panel-info">
+      <div class="panel-heading">MCQ Questions currently in DB</div>
+      <div class="panel-body">
+         {% for mcq_question in mcq_questions %}
+            <h3>{{ forloop.counter }}.{{ mcq_question.0 }}</h3>
+            {% for options in mcq_question.1 %}
+                <input type="radio" name="option" value="{{ forloop.counter }}"> {{ options }} <br/>
+            {% endfor %}
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+              {% if text_view_questions %}
+
+<div class="panel panel-default">
+      <div class="panel-heading">Text answer type questions currently in DB</div>
+      <div class="panel-body">
+                {% for question in text_view_questions %}
+                    <h3>{{ forloop.counter }}.{{ question.textName }}</h3>
+                {% endfor %}
+      </div>
+    </div>
+                {% endif %}
+
+
+    </div>
 </body>
 </html>
+
+<script>
+    $(document).ready(function() {
+  $("#mcq").click(function() {
+            $("div#MCQ").css("display", "inherit");
+            $("div#Textview").css("display","none");
+        });
+  $("#textview").click(function() {
+            $("div#MCQ").css("display", "none");
+            $("div#Textview").css("display","inherit");
+        });
+
+    });
+</script>

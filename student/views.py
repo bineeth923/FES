@@ -53,6 +53,7 @@ def index(request):
     zipped_data = zip(semesters, primaryKey)
     context = {
         'zippedData': zipped_data,
+        'token' : request.session.get('token')
     }
     return render(request, 'student/index.html', context)
 
@@ -64,7 +65,8 @@ def allFroms(request, sem):
         primaryKey.append(form.pk)
     zipped_data = zip(forms, primaryKey)
     context = {
-        'zippedData': zipped_data
+        'zippedData': zipped_data,
+        'token' : request.session.get('token')
     }
     return render(request, 'student/form.html', context)
 
@@ -80,6 +82,7 @@ def formFill(request, formId):
     context = {
         'form': form,
         'options': options,
-        'textView': textView
+        'textView': textView,
+        'token' : request.session.get('token')
     }
     return render(request, 'student/formfill.html', context)

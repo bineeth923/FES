@@ -3,26 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>Form Fill</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button2 {
+        background-color: white;
+        color: black;
+        border: 2px solid #008CBA;
+        border-radius: 5px;
+        margin-left: 2em;
+    }
+    .button2:hover {
+        background-color: #008CBA;
+        color: white;
+    }
+</style>
 </head>
 <body>
-<form method="post" action="{% url 'student:index' %}">
-{% csrf_token %}
-    <input type="hidden" name="form" value="{{ form.formName }}">
-    Teacher Name : {{ form.teacher.teacherName }}<br/>
-    MCQ
-    {% for option in options %}
-        {{ forloop.counter }}.{{ option.mcq }}<br/>
-        {% for option in option.options %}
-            <input type="radio" name="{{ forloop.parentloop.counter0 }}" value="{{ forloop.counter0 }}">{{ option }}<br/>
-        {% endfor %}
-        <br/>
-    {% endfor %}
-    Text View
-    {% for question in textView %}
-        <br/>{{ forloop.counter }}.{{ question.textName }}
-        <br/><input type="text" name="{{ question }}">
-    {% endfor %}
-    <br/><input type="submit">
-</form>
+    <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#">Faculty Evaluation System</a>
+            </div>
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> User-{{ token }}</a></li>
+              </ul>
+          </div>
+        </nav>
+    <form method="post" action="{% url 'student:index' %}">
+    {% csrf_token %}
+        <input type="hidden" name="form" value="{{ form.formName }}">
+        <div class="panel-group col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info ">
+                  <div class="panel-heading" style="text-align: center;font-size:2.5em ">Teacher Name : {{ form.teacher.teacherName }}</div>
+                  <div class="panel-body">
+                        <h3 style="margin-bottom: 1em">Select any one choice</h3>
+                        {% for option in options %}
+                            <h4>{{ forloop.counter }}.{{ option.mcq }}</h4>
+                            {% for option in option.options %}
+                              <div class="radio">
+                                    <label><input type="radio"  name="{{ forloop.parentloop.counter0 }}" value="{{ forloop.counter0 }}">{{ option }} </label>
+                              </div>
+                            {% endfor %}
+                        {% endfor %}
+                        <h3 style="margin-bottom: 1em">Write in about 160 - 200 characters</h3>
+                        {% for question in textView %}
+                            <h4>{{ forloop.counter }}.{{ question.textName }}</h4>
+                            <div class="input-group" style="margin-top: 2em">
+                              <input id="msg" type="text" class="form-control" style="width: 60em; margin-top: -1.1em; margin-bottom: 1em" name="{{ question }}" placeholder="Enter your answer here. (required)" >
+                            </div>
+                        {% endfor %}
+                        <input type="submit" class="button button2" style="width: 250px ; margin-left: 18em; margin-top: 2em;margin-bottom:2em" >
+                  </div>
+            </div>
+        </div>
+    </form>
 </body>
 </html>

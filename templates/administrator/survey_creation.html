@@ -3,19 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Survey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button2 {
+        background-color: white;
+        color: black;
+        border: 2px solid #008CBA;
+        border-radius: 5px;
+        margin-left: 2em;
+    }
+    .button2:hover {
+        background-color: #008CBA;
+        color: white;
+    }
+</style>
 <body>
-<button onclick="location.href='{% url 'administrator:add_question' %}'">Add Question</button>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Faculty Evaluation System</a>
+        </div>
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="/FES/administrator/logout/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+          </ul>
+      </div>
+    </nav>
+    <div class="panel-group col-sm-2 col-sm-offset-0">
+    <div class="panel panel-info ">
+      <div class="panel-heading" style="text-align: center">So Far..</div>
+      <div class="panel-body">
+          <ul>
+              <li style="color: red">Add Subject</li>
+              <li style="color: red">Add Semester</li>
+              <li style="color: red">Add teacher</li>
+              <li style="color: red">Create survey</li>
+              <li>Add questions</li>
+          </ul>
+      </div>
+    </div>
+    </div>
+
 <form method="post" action="{% url 'administrator:survey' %}">
         {% csrf_token %}
-        Survey  Name <input type="text" name="surveyName"><br/>
-        Select survey
-        <select name="semester">
-            {% for semester in semesters %}
-                <option value="{{ semester.pk }}">{{ semester.semesterName }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit">
+        <div class="panel-group col-sm-6 col-sm-offset-2">
+            <div class="panel panel-info ">
+                  <div class="panel-heading" style="text-align: center;font-size:2.5em ">Create Survey</div>
+                  <div class="panel-body">
+                      <div class="input-group" style="margin-top: 2em">
+                          <span class="input-group-addon">Survey  Name</span>
+                          <input id="msg" type="text" class="form-control" name="surveyName" placeholder="Put a apporiate survey name (required)" required>
+                      </div>
+                      <div class="form-group"style="margin-top: 1em">
+                          <label for="semester">Select Semester:</label>
+                          <select class="form-control" id="semester" name="semester">
+                            {% for semester in semesters %}
+                                 <option value="{{ semester.id }}">{{ semester.semesterName }}</option>
+                            {% endfor %}
+                          </select>
+                          <input type="submit" class="button button2" style="width: 250px ; margin-left: 13em; margin-top: 2em;margin-bottom:2em" ><br/>
+                          <label style="margin-left: 10em">Step 4 - Add Question ==> </label>
+                          <button onclick="location.href='{% url 'administrator:add_question' %}'" class="button button2">Add Question</button>
+                      </div>
+                  </div>
+            </div>
+        </div>
     </form>
 </body>
 </html>

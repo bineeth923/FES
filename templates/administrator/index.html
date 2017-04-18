@@ -2,9 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Teacher</title>
+    <title>Home - Admin</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button2 {
+        background-color: white;
+        color: black;
+        border: 2px solid #008CBA;
+        border-radius: 5px;
+        margin-left: 2em;
+    }
+    .button2:hover {
+        background-color: #008CBA;
+        color: white;
+    }
+</style>
 </head>
 <body>
-    <button onclick="location.href='{% url 'administrator:add_subject' %}'">Add Subject</button><br/>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Faculty Evaluation System</a>
+    </div>
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/FES/administrator/logout/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+  </div>
+</nav>
+
+<div class="panel-group col-sm-6 col-sm-offset-3">
+    <div class="panel panel-info ">
+      <div class="panel-heading" style="text-align: center">Home - Welcome to FES</div>
+      <div class="panel-body">
+          <p>Creating a survey requires a number of steps to be followed</p>
+          <p>They are</p>
+          <ol>
+              <li>Add Subject(the one which the teachers take) </li>
+              <li>Add Semester(Class which the teacher take)</li>
+              <li>Add the teacher (teacher name will be username and password will be promt to enter)</li>
+              <li>Create survey</li>
+              <li>Finally , Add questions -- Questions can be MCQs or Text based answer questions</li>
+          </ol>
+          <h3>So.. Lets start</h3>
+          <label style="margin-left: 10em">Step 1 - Add Subject ==> </label><button class="button button2" onclick="location.href='{% url 'administrator:add_subject' %}'">Add Subject</button><br/>
+      </div>
+    </div>
+</div>
 </body>
 </html>

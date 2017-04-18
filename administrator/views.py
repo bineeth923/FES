@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from functions import *
 from teacher import models as teacher_view
 from survey import models
-
+from survey.views import common_login
 
 @login_required
 @user_passes_test(is_admin)
@@ -17,7 +17,7 @@ def index(request):
 @user_passes_test(is_admin)
 def logout_user(user):
     logout(user)
-    return HttpResponseRedirect(reverse('administrator:index') + '?status=loggout+successfully')
+    return common_login(user)
 
 @login_required
 @user_passes_test(is_admin)
@@ -28,7 +28,9 @@ def add_subject(request):
         subject.save()
         return HttpResponseRedirect(reverse('administrator:add_subject') + '?status=success')
     subjects = teacher_view.Subject.objects.all()
-    context = {'subjects': subjects}
+    context = {
+        'subjects': subjects,
+    }
     return render(request, 'administrator/add_subject.html', context=context)
 
 
