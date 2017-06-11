@@ -65,7 +65,9 @@
                   {% if text_view_questions %}
                     {% for question in text_view_questions %}
                         <h2>{{ forloop.counter }}.{{ question.textName }}<br/></h2>
-                        <h3>Answer: {{ question.result }}</h3>
+                        {% for ans in text_view_ans %}
+                            <h3>Answer: {{ ans.result }}</h3>
+                        {% endfor %}
                       {% endfor %}
 
                   {% endif %}

@@ -16,12 +16,15 @@ def index(request):
     return render(request, 'administrator/index.html')
 
 
-@login_required
-@user_passes_test(is_admin)
 def logout_user(user):
     logout(user)
     return common_login(user)
 
+def clear_all(request):
+    models.Semester.objects.all().delete()
+    models.Form.objects.all().delete()
+    teacher_view.Subject.objects.all().delete()
+    return HttpResponseRedirect(reverse('administrator:add_subject') + '?status=deleted_all_successfully')
 
 @login_required
 @user_passes_test(is_admin)
@@ -60,9 +63,12 @@ def add_teacher(request):
         subject = int(request.POST['subject'])
         teacher = teacher_view.Teacher(teacherName=username, Semester=teacher_view.Semester.objects.get(pk=semester),
                                        subject=teacher_view.Subject.objects.get(pk=subject))
-        user = User.objects.create_user(username=username, password="Monisha123")
-        group = Group.objects.get(name="Teacher")
-        group.user_set.add(user)
+        try:
+            user = User.objects.create_user(username=username, password="Monisha123")
+            group = Group.objects.get(name="Teacher")
+            group.user_set.add(user)
+        except:
+            pass
         teacher.save()
         return HttpResponseRedirect(reverse('administrator:add_teacher') + '?status=success')
     allSubjects = teacher_view.Subject.objects.all()

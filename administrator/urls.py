@@ -4,6 +4,7 @@ from administrator import views as admin_view
 urlpatterns=[
     url(r'^index/$',admin_view.index,name='index'),
     url(r'^logout/$' , admin_view.logout_user , name='logout'),
+    url(r'^clear/$' , admin_view.clear_all , name='clear'),
     url(r'^add_subject/$' , admin_view.add_subject , name="add_subject"),
     url(r'^add_semester/$', admin_view.add_semester , name='add_semester'),
     url(r'^add_teacher/$' , admin_view.add_teacher , name='add_teacher'),

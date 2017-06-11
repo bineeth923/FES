@@ -41,6 +41,7 @@ def result(request ,sem ,  formId):
     allToken = survey_model.Token.objects.filter(form = form)
     mcqs = survey_model.MCQ.objects.filter(form=form).filter(token__isnull=True)
     textViews = survey_model.TextView.objects.filter(form=form).filter(token__isnull=True)
+    textViews_withans = survey_model.TextView.objects.filter(form=form).filter(token__isnull=False)
     mcq_questions = []
     for mcq in mcqs:
         options = (survey_model.Options.objects.filter(mcq=mcq)).filter(form = form)
@@ -48,6 +49,7 @@ def result(request ,sem ,  formId):
     context = {
         'mcq_questions': mcq_questions,
         'text_view_questions': textViews,
+        'text_view_ans' : textViews_withans,
         'subject' : form.teacher.subject.subjectName,
         'sem' : form.semester.semesterName,
         'count' : allToken.count
