@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import logout
+from django.contrib.auth.models import User,Group
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse
 from django.http import HttpResponse
@@ -8,16 +9,19 @@ from teacher import models as teacher_view
 from survey import models
 from survey.views import common_login
 
+
 @login_required
 @user_passes_test(is_admin)
 def index(request):
     return render(request, 'administrator/index.html')
+
 
 @login_required
 @user_passes_test(is_admin)
 def logout_user(user):
     logout(user)
     return common_login(user)
+
 
 @login_required
 @user_passes_test(is_admin)
@@ -43,10 +47,8 @@ def add_semester(request):
         semester.save()
         return HttpResponseRedirect(reverse('administrator:add_semester') + '?status=success')
     semesters = teacher_view.Semester.objects.all()
-    context = {'semesters' : semesters}
-    return render(request , 'administrator/add_semester.html' , context)
-
-
+    context = {'semesters': semesters}
+    return render(request, 'administrator/add_semester.html', context)
 
 
 @login_required
@@ -58,6 +60,9 @@ def add_teacher(request):
         subject = int(request.POST['subject'])
         teacher = teacher_view.Teacher(teacherName=username, Semester=teacher_view.Semester.objects.get(pk=semester),
                                        subject=teacher_view.Subject.objects.get(pk=subject))
+        user = User.objects.create_user(username=username, password="Monisha123")
+        group = Group.objects.get(name="Teacher")
+        group.user_set.add(user)
         teacher.save()
         return HttpResponseRedirect(reverse('administrator:add_teacher') + '?status=success')
     allSubjects = teacher_view.Subject.objects.all()
@@ -65,7 +70,7 @@ def add_teacher(request):
     semesters = teacher_view.Semester.objects.all()
     context = {'subjectName': allSubjects,
                'teachers': teachers,
-               'semesters' : semesters
+               'semesters': semesters
                }
     return render(request, 'administrator/add_teacher.html', context=context)
 
@@ -88,7 +93,7 @@ def survey_creation(request):
         surveyName = request.POST['surveyName']
         sem = request.POST['semester']
         semester = models.Semester.objects.get(pk=int(sem))
-        survey = models.Survey(surveyName=surveyName , sem = semester)
+        survey = models.Survey(surveyName=surveyName, sem=semester)
         survey.save()
         form_creation(semester)
         try:
@@ -96,12 +101,10 @@ def survey_creation(request):
         except Exception:
             return HttpResponseRedirect(reverse('administrator:survey') + '?status=error')
     semesters = models.Semester.objects.all()
-    context={
-        'semesters' : semesters
+    context = {
+        'semesters': semesters
     }
-    return render(request, 'administrator/survey_creation.html' , context)
-
-
+    return render(request, 'administrator/survey_creation.html', context)
 
 
 @login_required
@@ -140,9 +143,9 @@ def add_question(request):
         else:
             return HttpResponseRedirect(reverse('administrator:add_question') + '?status=error')
     try:
-        mcqs = models.MCQ.objects.filter(form=models.Form.objects.get(formName = '1'))
+        mcqs = models.MCQ.objects.filter(form=models.Form.objects.get(formName='1'))
         if mcqs:
-            textView = models.TextView.objects.filter(form = models.Form.objects.get(formName='1'))
+            textView = models.TextView.objects.filter(form=models.Form.objects.get(formName='1'))
             mcq_questions = []
             for mcq in mcqs:
                 options = (models.Options.objects.filter(mcq=mcq))

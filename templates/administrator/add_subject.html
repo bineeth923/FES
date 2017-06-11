@@ -64,16 +64,20 @@
         {% csrf_token %}
     <div class="panel-group col-sm-6 col-sm-offset-2">
         <div class="panel panel-info ">
-          <div class="panel-heading" style="text-align: center;font-size:2.5em ">Subjects currently in Database</div>
+          <div class="panel-heading" style="text-align: center;font-size:2.5em ">Add subjects for which the teacher teaches</div>
           <div class="panel-body">
               <div class="input-group" style="margin-top: 2em">
                   <span class="input-group-addon">Subject name</span>
                   <input id="msg" type="text" class="form-control" name="subject" placeholder="Add subjects if they are not in the database (required)" required>
               </div>
+          {% if subjects %}
             <h4 style="margin-top: 2em">Subjects currently in Database are..:</h4>
               {% for subject in subjects %}
                 {{ subject.subjectName }}<br/>
               {% endfor %}
+          {% else %}
+              <h4 style="margin-top: 2em">Currently there are no subjects in DB. Add some.</h4>
+          {% endif %}
               <input type="submit" class="button button2" style="width: 250px ; margin-left: 13em; margin-top: 2em;margin-bottom:2em" ><br/>
              <label style="margin-left: 10em">Step 2 - Add Semester ==> </label>
               <button onclick="location.href='{% url 'administrator:add_semester' %}'" class="button button2">Add Semester</button>

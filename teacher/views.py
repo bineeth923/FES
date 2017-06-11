@@ -47,6 +47,9 @@ def result(request ,sem ,  formId):
         mcq_questions.append([mcq.textName, options])
     context = {
         'mcq_questions': mcq_questions,
-        'text_view_questions': textViews
+        'text_view_questions': textViews,
+        'subject' : form.teacher.subject.subjectName,
+        'sem' : form.semester.semesterName,
+        'count' : allToken.count
     }
     return render(request , 'teacher/result.html' , context)

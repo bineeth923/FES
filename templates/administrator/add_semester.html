@@ -71,10 +71,14 @@
                   <span class="input-group-addon">Semester name</span>
                   <input id="msg" type="text" class="form-control" name="semesterName" placeholder="Add semesters if they are not in the database (required)" required>
               </div>
+          {% if semesters %}
             <h4 style="margin-top: 2em">Semesters currently in Database are..:</h4>
               {% for semester in semesters %}
                 {{ semester.semesterName }}<br/>
               {% endfor %}
+          {% else %}
+              <h4 style="margin-top: 2em">There are no semesters added in the DB yet. Add some</h4>
+          {% endif %}
               <input type="submit" class="button button2" style="width: 250px ; margin-left: 13em; margin-top: 2em;margin-bottom:2em" ><br/>
              <label style="margin-left: 10em">Step 3 - Add Teacher ==> </label>
               <button onclick="location.href='{% url 'administrator:add_teacher' %}'" class="button button2">Add Teacher</button>

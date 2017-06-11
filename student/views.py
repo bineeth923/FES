@@ -43,7 +43,7 @@ def index(request):
             TextView.save()
         token.form = form
         token.survey = form.survey
-        token.save(force_update=True)
+        token.save()
         # form.token = models.Token.objects.get(tokenId=request.session.get('token'))
         # form.save(force_update=True)
     semesters = teacher_view.Semester.objects.all()
@@ -59,7 +59,7 @@ def index(request):
 
 
 def allFroms(request, sem):
-    forms = models.Form.objects.filter(semester=models.Semester.objects.get(pk=int(sem)))
+    forms = models.Form.objects.filter(semester=models.Semester.objects.get(pk=int(sem))).filter()
     primaryKey = []
     for form in forms:
         primaryKey.append(form.pk)

@@ -2,16 +2,78 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Result</title>
+    <title>Teacher-Feedback Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button2 {
+        background-color: white;
+        color: black;
+        border: 2px solid #008CBA;
+        border-radius: 5px;
+        margin-left: 2em;
+    }
+    .button2:hover {
+        background-color: #008CBA;
+        color: white;
+    }
+</style>
 </head>
 <body>
-    {% if mcq_questions %}
-        {% for mcq in mcq_questions %}
-            <h2>{{ mcq.0 }}<br/></h2>
-            {% for option in mcq.1 %}
-                {{ option.textName }} : {{ option.result }}<br/>
-            {% endfor %}
-        {% endfor %}
-    {% endif %}
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Faculty Evaluation System</a>
+        </div>
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="/FES/administrator/logout/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+          </ul>
+      </div>
+    </nav>
+    <div class="panel-group col-sm-6 col-sm-offset-3">
+        <div class="panel panel-info ">
+          <div class="panel-heading" style="text-align: center;font-size:2.5em ">Feedback Results
+              <h5 style="margin-top: 2em">Feedback Results : {{ sem }} - {{ subject }}</h5>
+              <h5 style="margin-top: 2em">No of voters : {{ count }} </h5>
+          </div>
+          <div class="panel-body">
+              {% if True %}
+                  {% if mcq_questions %}
+                    {% for mcq in mcq_questions %}
+                        <h2>{{ mcq.0 }}<br/></h2>
+                        {% for option in mcq.1 %}
+                            {{ option.textName }} : {{ option.result }}<br/>
+                        {% endfor %}
+                    {% endfor %}
+                  {% endif %}
+                  {% if text_view_questions %}
+                    {% for question in text_view_questions %}
+                        <h2>{{ forloop.counter }}.{{ question.textName }}<br/></h2>
+                        <h3>Answer: {{ question.result }}</h3>
+                      {% endfor %}
+
+                  {% endif %}
+              {% else %}
+                  <h4 style="margin-top: 2em">Nothing much to display. Try again later.</h4>
+              {% endif %}
+          </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -2,11 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>All forms</title>
+    <title>Teacher-Select subject</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button2 {
+        background-color: white;
+        color: black;
+        border: 2px solid #008CBA;
+        border-radius: 5px;
+        margin-left: 2em;
+    }
+    .button2:hover {
+        background-color: #008CBA;
+        color: white;
+    }
+</style>
 </head>
 <body>
-    {% for form , primaryKey in zipped_data %}
-        <a href="{{ primaryKey }}">{{ form.teacher.subject.subjectName }}</a>
-    {% endfor %}
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Faculty Evaluation System</a>
+        </div>
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="/FES/administrator/logout/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+          </ul>
+      </div>
+    </nav>
+    <div class="panel-group col-sm-6 col-sm-offset-3">
+        <div class="panel panel-info ">
+          <div class="panel-heading" style="text-align: center;font-size:2.5em ">Select the subject</div>
+          <div class="panel-body">
+              {% if zipped_data %}
+                <h4 style="margin-top: 2em">Subjects whose feedback is accounted for..</h4>
+                  {% for form , primaryKey in zipped_data %}
+                      <h3>{{ forloop.counter }}.<a href="{{ primaryKey }}">{{ form.teacher.subject.subjectName }}</a></h3>
+                  {% endfor %}
+              {% else %}
+                  <h4 style="margin-top: 2em">Nothing much to display. Try again later.</h4>
+              {% endif %}
+          </div>
+        </div>
+    </div>
 </body>
 </html>
